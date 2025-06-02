@@ -1,0 +1,9 @@
+python-dotenv==1.0.1
+Scrapy==2.13.1
+PyMuPDF==1.25.3
+simsimd==6.2.1
+langchain-community==0.3.24
+langchain-core==0.3.59
+langchain-huggingface==0.1.2
+langchain-text-splitters==0.3.8
+pymilvus==2.5.6
