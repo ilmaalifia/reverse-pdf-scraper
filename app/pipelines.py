@@ -1,12 +1,8 @@
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-
 import gc
+import os
 
 from app.milvus import Milvus
-from app.utils import NUMBER_OF_PAGES_TO_CHECK, setup_logger
+from app.utils import SIMILARITY_SCORING_COUNT_PAGES, setup_logger
 from app.vectorisation import Vectorisation
 from dotenv import load_dotenv
 
@@ -30,7 +26,8 @@ class ProcessingPipeline:
         self.count = 0
         self.mean = 0.0
         self.M2 = 0.0
-        self.zscore_threshold = 0.5
+        self.zscore_threshold = float(os.getenv("ZSCORE_THRESHOLD", "0.5"))
+        self.zscore_min_count = int(os.getenv("ZSCORE_MIN_COUNT", "30"))
 
     def close_spider(self, spider):
         gc.collect()
@@ -43,7 +40,7 @@ class ProcessingPipeline:
         self.M2 += delta * delta2
 
     def std(self):
-        if self.count < 30:
+        if self.count < self.zscore_min_count:
             return None
         return (self.M2 / (self.count - 1)) ** 0.5
 
@@ -62,7 +59,7 @@ class ProcessingPipeline:
 
         # Similarity score checking
         similarity_score = self.vectorisation.topic_similarity_score(
-            self.topic, docs[:NUMBER_OF_PAGES_TO_CHECK]
+            self.topic, docs[:SIMILARITY_SCORING_COUNT_PAGES]
         )
         zscore = self.get_zscore(similarity_score)
         threshold = self.zscore_threshold if zscore else initial_threshold
