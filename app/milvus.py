@@ -1,4 +1,3 @@
-import gc
 import os
 
 from app.utils import setup_logger
@@ -46,7 +45,6 @@ class Milvus:
                 collection_name=self.collection_name, data=data[i : i + batch_size]
             )
             count["insert_count"] += result.get("insert_count", 0)
-        gc.collect()
         return count
 
     def create_schema(self):
@@ -66,7 +64,7 @@ class Milvus:
                 ),
                 FieldSchema(
                     name="sparse_vector",
-                    description="Sparse vector embeddings of the current snippet",
+                    description="Sparse vector of the current snippet",
                     dtype=DataType.SPARSE_FLOAT_VECTOR,
                 ),
                 FieldSchema(
@@ -79,7 +77,7 @@ class Milvus:
                 ),
                 FieldSchema(
                     name="source",
-                    description="Source link of the PDF document",
+                    description="Source url of the PDF document",
                     dtype=DataType.VARCHAR,
                     max_length=3000,
                 ),
@@ -99,7 +97,7 @@ class Milvus:
                     dtype=DataType.INT64,
                 ),
             ],
-            description="Vectors of all collected PDF documents from internet",
+            description="Vectors of collected PDF documents from internet",
         )
 
         bm25_function = Function(
@@ -136,48 +134,17 @@ class Milvus:
         self.client.load_collection(collection_name=self.collection_name)
         logger.info(f"Creating index is completed")
 
-    def dense_search(self, query_embedding, top_k: int = 3):
-        return self.client.search(
-            collection_name=self.collection_name,
-            data=[query_embedding],
-            limit=top_k,
-            output_fields=["text", "source", "page", "timestamp"],
-            anns_field="dense_vector",
-            search_params={"metric_type": "COSINE"},
-        )
-
-    def sparse_search(self, query):
-        return self.client.search(
-            collection_name=self.collection_name,
-            data=[query],
-            anns_field="sparse_vector",
-            limit=10,
-            search_params={"metric_type": "BM25"},
-            output_fields=[
-                "text",
-                "page",
-                "source",
-                "timestamp",
-            ],
-        )
-
     def get_collection_stats(self):
         return self.client.get_collection_stats(self.collection_name)
 
     def list_indexes(self):
         return self.client.list_indexes(self.collection_name)
 
-    def query_by_source(self, source):
+    def query_by_source(self, source, output_fields=["source", "total_size"]):
         return self.client.query(
             collection_name=self.collection_name,
             filter=f'source=="{source}"',
-            output_fields=[
-                "page",
-                "text",
-                "source",
-                "timestamp",
-                "total_size",
-            ],
+            output_fields=output_fields,
         )
 
     def is_duplicate(self, source, total_size):

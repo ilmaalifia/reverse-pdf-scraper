@@ -51,6 +51,9 @@ SPIDER_MIDDLEWARES = {
     "scrapy.spidermiddlewares.depth.DepthMiddleware": 543
 }
 DEPTH_LIMIT = 1
+DEPTH_PRIORITY = 1
+SCHEDULER_DISK_QUEUE = "scrapy.squeues.PickleFifoDiskQueue"
+SCHEDULER_MEMORY_QUEUE = "scrapy.squeues.FifoMemoryQueue"
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
@@ -67,8 +70,7 @@ DEPTH_LIMIT = 1
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    # "app.pipeline.AppPipeline": 300,
-    # "app.pipeline.PDFVectorisationPipeline": 300,
+    "app.pipelines.ProcessingPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

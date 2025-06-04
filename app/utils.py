@@ -2,7 +2,6 @@ import logging
 import sys
 
 NUMBER_OF_PAGES_TO_CHECK = 5
-SIMILARITY_THRESHOLD = 0.3
 BLOCKED_DOMAINS = [
     "youtube.com",
     "youtu.be",
