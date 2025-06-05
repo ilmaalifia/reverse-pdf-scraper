@@ -2,7 +2,7 @@ import logging
 import os
 import sys
 
-SIMILARITY_SCORING_COUNT_PAGES = int(os.getenv("SIMILARITY_SCORING_COUNT_PAGES", "5"))
+SIMILARITY_SCORING_PAGE_COUNT = int(os.getenv("SIMILARITY_SCORING_PAGE_COUNT", "5"))
 BLOCKED_DOMAINS = [
     "youtube.com",
     "youtu.be",

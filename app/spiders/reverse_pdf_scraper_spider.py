@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 
 import pymupdf
 import scrapy
-from app.utils import BLOCKED_DOMAINS, SIMILARITY_SCORING_COUNT_PAGES, setup_logger
+from app.utils import BLOCKED_DOMAINS, SIMILARITY_SCORING_PAGE_COUNT, setup_logger
 from app.vectorisation import Vectorisation
 from dotenv import load_dotenv
 from langchain_core.documents import Document
@@ -31,7 +31,7 @@ class ReversePDFScraperSpider(scrapy.Spider):
                 vectorisation = Vectorisation()
                 urls = self.get_urls(doc)
                 similarity_score = vectorisation.topic_similarity_score(
-                    self.topic, doc[:SIMILARITY_SCORING_COUNT_PAGES]
+                    self.topic, doc[:SIMILARITY_SCORING_PAGE_COUNT]
                 )
 
             self.initial_threshold = similarity_score / 2

@@ -2,7 +2,7 @@ import gc
 import os
 
 from app.milvus import Milvus
-from app.utils import SIMILARITY_SCORING_COUNT_PAGES, setup_logger
+from app.utils import SIMILARITY_SCORING_PAGE_COUNT, setup_logger
 from app.vectorisation import Vectorisation
 from dotenv import load_dotenv
 
@@ -59,7 +59,7 @@ class ProcessingPipeline:
 
         # Similarity score checking
         similarity_score = self.vectorisation.topic_similarity_score(
-            self.topic, docs[:SIMILARITY_SCORING_COUNT_PAGES]
+            self.topic, docs[:SIMILARITY_SCORING_PAGE_COUNT]
         )
         zscore = self.get_zscore(similarity_score)
         threshold = self.zscore_threshold if zscore else initial_threshold
