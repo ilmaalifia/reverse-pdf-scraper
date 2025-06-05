@@ -2,7 +2,7 @@
 
 > This code is part of master thesis titled "Accelerating Business Case Development with Context-Aware AI: A Question Answering System Integrating PDF Corpora and Web Retrieval"
 
-`reverse-pdf-scraper` is a web scraping tool built using [Scrapy](https://scrapy.org/) which is designed to trace backward references in documents. It reads a given PDF file, extracts all the URLs cited within it, and then crawls those web pages to retrieve their contents. These contents will be assessed if it is relevant with given topic, vectorised, and saved in Milvus vector database.
+`reverse-pdf-scraper` is a web scraping tool designed to trace backward references in documents. It reads a given PDF file, extracts all the URLs cited within it, and then crawls those web pages to retrieve their contents. These contents will be assessed if it is relevant with given topic, vectorised, and saved in Milvus vector database. Built using [Scrapy](https://scrapy.org/).
 
 ## 🖥️ Tested Machine Specs
 
