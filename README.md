@@ -4,15 +4,23 @@
 
 `reverse-pdf-scraper` is a web scraping tool designed to trace backward references in documents. It reads a given PDF file, extracts all the URLs cited within it, and then crawls those web pages to retrieve their contents. These contents will be assessed if it is relevant with given topic, vectorised, and saved in Milvus vector database. Built using [Scrapy](https://scrapy.org/).
 
-## 🖥️ Tested Machine Specs
+## 🖥️ Requirements
 
-This project has been tested on the following systems:
+### ✅ Supported Systems
 
-| OS       | CPU      | RAM  | Python Version |
-| -------- | -------- | ---- | -------------- |
-| macOS 15 | Apple M2 | 8 GB | 3.13           |
+This project has been tested on the following system configuration:
 
-## ⚙️ Setup Instructions
+| Operating System | Chip                              | RAM  | Python Version |
+| ---------------- | --------------------------------- | ---- | -------------- |
+| macOS 15         | Apple M2 (8-Core CPU, 8-Core GPU) | 8 GB | 3.13           |
+
+> ℹ️ Other systems may work but have not been officially tested.
+
+### 📦 External Dependencies
+
+1. **Milvus** – Ensure you have a Milvus instance running. You can host it locally using Docker or connect to a remote instance. Refer to the Milvus documentation for setup instructions.
+
+## ⚙️ Setup Python Environment
 
 You can set up the environment using either **Conda/Miniconda** or **Python venv**.
 
