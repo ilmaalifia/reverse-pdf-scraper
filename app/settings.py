@@ -6,7 +6,7 @@ NEWSPIDER_MODULE = "app.spiders"
 ADDONS = {}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = "reverse-pdf-scraper/1.0 (+mailto:your@email.com)"
+USER_AGENT = "reverse-pdf-scraper/1.0 (+mailto:i.a.mahardika@student.utwente.nl)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
