@@ -88,7 +88,7 @@ MILVUS_TOKEN=your-milvus-token
 Run the Scrapy spider using the following command:
 
 ```bash
-scrapy crawl reverse_pdf_spider \
+scrapy crawl reverse-pdf-scraper \
   -a topic="example topic" \
   -a document_path="example/path/to/document.pdf"
 ```
