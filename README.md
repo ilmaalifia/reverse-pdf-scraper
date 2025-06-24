@@ -23,44 +23,23 @@ This project has been tested on the following system configuration:
 
 ## ⚙️ Setup Python Environment
 
-You can set up the environment using either **Conda/Miniconda** or **Python venv**.
+You can set up the environment using either **Conda/Miniconda** or **Python venv**. The following guidelines uses **Miniconda**.
 
-### 📦 Option 1: Using Conda/Miniconda
-
-1. Create and activate a new environment:
+1. Install **Miniconda** using [this guidelines](https://www.anaconda.com/docs/getting-started/miniconda/install#basic-install-instructions).
+2. Create and activate a new environment:
 
    ```bash
    conda create -n reverse_pdf_env python=3.13 -y
    conda activate reverse_pdf_env
    ```
 
-2. Install dependencies:
+3. Install dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
----
-
-### 🐍 Option 2: Using Python Virtualenv
-
-1. Create and activate a virtual environment:
-
-   ```bash
-   python -m venv venv
-   source venv/bin/activate   # macOS/Linux
-   .\venv\Scripts\activate    # Windows
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
----
-
-### 🔐 Setup Credential File and Update USER_AGENT
+## 🔐 Setup Credential File and Update USER_AGENT
 
 1. Copy the example file `.env.example` as `.env`:
 
