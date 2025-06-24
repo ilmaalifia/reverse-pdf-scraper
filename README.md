@@ -2,7 +2,7 @@
 
 > This code is part of master thesis titled "Accelerating Business Case Development with Context-Aware AI: A Question Answering System Integrating PDF Corpora and Web Retrieval"
 
-`reverse-pdf-scraper` is a web scraping tool designed to trace backward references in documents. It reads a given PDF file, extracts all the URLs cited within it, and then crawls those web pages to retrieve their contents. These contents will be assessed if it is relevant with given topic, vectorised, and saved in Milvus vector database. Built using [Scrapy](https://scrapy.org/).
+`reverse-pdf-scraper` is a web scraping tool designed to trace backward references in documents. It reads a given PDF file, extracts all the URLs cited within it, and then crawls those web pages to retrieve their contents. These contents will be assessed if it is relevant with given context term, vectorised, and saved in Milvus vector store. Built using [Scrapy](https://scrapy.org/).
 
 ## 🖥️ Requirements
 
@@ -13,6 +13,7 @@ This project has been tested on the following system configuration:
 | Operating System | Chip                              | RAM  | Python Version |
 | ---------------- | --------------------------------- | ---- | -------------- |
 | macOS 15         | Apple M2 (8-Core CPU, 8-Core GPU) | 8 GB | 3.13           |
+| Windows 11       | Intel Core i7-1165G7 (4-Core CPU) | 16 GB | 3.13           |
 
 > ℹ️ Other systems may work but have not been officially tested.
 
@@ -88,7 +89,5 @@ MILVUS_TOKEN=your-milvus-token
 Run the Scrapy spider using the following command:
 
 ```bash
-scrapy crawl reverse-pdf-scraper \
-  -a topic="example topic" \
-  -a document_path="example/path/to/document.pdf"
+scrapy crawl reverse-pdf-scraper -a context="example context" -a reference_document="example/path/to/document.pdf"
 ```

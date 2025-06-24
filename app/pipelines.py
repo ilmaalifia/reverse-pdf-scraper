@@ -18,7 +18,7 @@ class ProcessingPipeline:
         return cls()
 
     def open_spider(self, spider):
-        self.topic = getattr(spider, "topic", None)
+        self.context = getattr(spider, "context", None)
         self.vectorisation = Vectorisation()
         self.milvus = Milvus()
 
@@ -58,8 +58,8 @@ class ProcessingPipeline:
             return
 
         # Similarity score checking
-        similarity_score = self.vectorisation.topic_similarity_score(
-            self.topic, docs[:SCORING_PAGE_COUNT]
+        similarity_score = self.vectorisation.context_similarity_score(
+            self.context, docs[:SCORING_PAGE_COUNT]
         )
         zscore = self.get_zscore(similarity_score)
         threshold = self.zscore_threshold if zscore else initial_threshold

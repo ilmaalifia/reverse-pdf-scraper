@@ -25,10 +25,10 @@ class Vectorisation:
             model_name=os.getenv("DENSE_MODEL"),
         )
 
-    def topic_similarity_score(self, topic: str, docs: list) -> float:
-        if not topic:  # Pass checking and gives max score
+    def context_similarity_score(self, context: str, docs: list) -> float:
+        if not context:  # Pass checking and gives max score
             return 1.0
-        if not docs:  # Pass checking and gives max score
+        if not docs:  # Pass checking and gives min score
             return 0.0
 
         if isinstance(docs[0], Document):
@@ -39,8 +39,8 @@ class Vectorisation:
             pages = []
 
         pages_embeddings = self.model_embeddings.embed_documents(pages)
-        topic_embeddings = self.model_embeddings.embed_documents([topic])
-        return cosine_similarity(topic_embeddings, pages_embeddings)[0][0]
+        context_embeddings = self.model_embeddings.embed_documents([context])
+        return cosine_similarity(context_embeddings, pages_embeddings)[0][0]
 
     def get_vector_data(self, chunks: List[Document]):
         dense_vectors = self.model_embeddings.embed_documents(

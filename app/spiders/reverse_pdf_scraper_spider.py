@@ -18,20 +18,20 @@ logger = setup_logger(__name__)
 class ReversePDFScraperSpider(scrapy.Spider):
     name = "reverse-pdf-scraper"
 
-    def __init__(self, topic: str, document_path: str, *args, **kwargs):
+    def __init__(self, context: str, reference_document: str, *args, **kwargs):
         super(ReversePDFScraperSpider, self).__init__(*args, **kwargs)
-        self.topic = topic
-        self.document_path = document_path
-        logger.info(f"Topic: {self.topic}")
-        logger.info(f"Reference document: {self.document_path}")
+        self.context = context
+        self.reference_document = reference_document
+        logger.info(f"Context: {self.context}")
+        logger.info(f"Reference document: {self.reference_document}")
 
     async def start(self):
         try:
-            with pymupdf.open(self.document_path) as doc:
+            with pymupdf.open(self.reference_document) as doc:
                 vectorisation = Vectorisation()
                 urls = self.get_urls(doc)
-                similarity_score = vectorisation.topic_similarity_score(
-                    self.topic, doc[:SCORING_PAGE_COUNT]
+                similarity_score = vectorisation.context_similarity_score(
+                    self.context, doc[:SCORING_PAGE_COUNT]
                 )
 
             self.initial_threshold = similarity_score / 2
